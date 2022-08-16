@@ -28,6 +28,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.example.cameraxbasic.databinding.ActivityMainBinding
 import java.io.File
+import android.nfc.NfcAdapter
 
 const val KEY_EVENT_ACTION = "key_event_action"
 const val KEY_EVENT_EXTRA = "key_event_extra"
@@ -54,6 +55,9 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.fragmentContainer.postDelayed({
             hideSystemUI()
         }, IMMERSIVE_FLAG_TIMEOUT)
+
+        val nfca = NfcAdapter.getDefaultAdapter(this)
+        nfca.enableReaderMode(this, null, NfcAdapter.FLAG_READER_NFC_A, null)
     }
 
     /** When key down event is triggered, relay it via local broadcast so fragments can handle it */
